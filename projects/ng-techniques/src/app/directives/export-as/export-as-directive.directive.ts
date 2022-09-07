@@ -1,11 +1,11 @@
 import { Directive, HostBinding } from '@angular/core';
 
 @Directive({
-  selector: '[appHighlight]',
+  selector: '[exportAsDirective]',
   standalone: true,
-	exportAs: 'appHighlight'
+	exportAs: 'exportAsDirective'
 })
-export class HighlightDirective {
+export class ExportAsDirective {
 	@HostBinding('style.backgroundColor') private backgroundColor: string = 'transparent';
 	
   constructor() { }
