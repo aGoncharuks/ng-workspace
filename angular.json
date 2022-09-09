@@ -14,10 +14,12 @@
       "schematics": {
         "@schematics/angular:component": {
           "inlineTemplate": true,
-          "inlineStyle": false,
+          "inlineStyle": true,
           "style": "scss",
-          "skipTests": true
-        },
+          "skipTests": true,
+					"standalone": true,
+					"flat": true
+				},
         "@schematics/angular:class": {
           "skipTests": true
         },
