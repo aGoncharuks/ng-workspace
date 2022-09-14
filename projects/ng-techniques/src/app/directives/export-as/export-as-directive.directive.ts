@@ -6,7 +6,7 @@ import { Directive, HostBinding } from '@angular/core';
 	exportAs: 'exportAsDirective'
 })
 export class ExportAsDirective {
-	@HostBinding('style.backgroundColor') private backgroundColor: string = 'transparent';
+	@HostBinding('style.backgroundColor') backgroundColor: string = 'transparent';
 	
   constructor() { }
 	
