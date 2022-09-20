@@ -2,6 +2,11 @@ import { Routes } from '@angular/router';
 
 export const DIRECTIVES_ROUTES: Routes = [
 	{
+		path: '',
+		redirectTo: 'export-as',
+		pathMatch: 'full'
+	},
+	{
 		path: 'export-as',
 		loadComponent: () => import('./export-as/export-as-directive.component').then(m => m.ExportAsDirectiveComponent)
 	},
