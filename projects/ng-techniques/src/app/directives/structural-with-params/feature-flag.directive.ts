@@ -1,56 +1,43 @@
-import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { FeatureFlagService } from './feature-flag-service.interface';
+import { Directive, inject, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { FeatureFlagService } from './feature-flag-service';
 
 @Directive({
   selector: '[appIfFeatureFlag]',
 	standalone: true
 })
 export class FeatureFlagDirective implements OnInit {
-
   @Input()
   appIfFeatureFlag!: string;
-
   @Input()
   appIfFeatureFlagElse?: TemplateRef<unknown>;
 
-  constructor(
-    private featureFlagService: FeatureFlagService,
-    private templateRef: TemplateRef<unknown>,
-    private viewContainerRef: ViewContainerRef
-  ) { }
-
-  ngOnInit() {
-    this.getFeatureFlag()
-      .then(result => result ? this.onIf() : this.onElse())
-      .catch(error => {
-        this.onElse();
-				console.error(error); // to be replaced with your error handling logic
-      });
-  }
-
-
-  private getFeatureFlag(): Promise<boolean> {
-    return this.featureFlagService.getFeatureStatus(this.appIfFeatureFlag);
+	private templateRef = inject(TemplateRef<unknown>);
+	private viewContainerRef = inject(ViewContainerRef);
+	private featureFlagService = inject(FeatureFlagService);
+	
+  async ngOnInit() {
+		try {
+	    const featureFlag = await this.featureFlagService.getFeatureFlag(this.appIfFeatureFlag);
+			featureFlag ? this.onIf() : this.onElse();
+		} catch (error) {
+      this.onElse();
+			console.error(error); // to be replaced with your error handling logic
+		}
   }
 	
-  private clearView(): void {
-    this.viewContainerRef.clear();
-  }
-
-  private createView(templateRef: TemplateRef<unknown>): void {
-    this.viewContainerRef.createEmbeddedView(templateRef);
-  }
-
   private onIf(): void {
     this.createView(this.templateRef);
   }
 
   private onElse(): void {
-    if (this.appIfFeatureFlagElse) {
-      this.createView(this.appIfFeatureFlagElse);
+    if (!this.appIfFeatureFlagElse) {
       return;
     }
+		
+	  this.createView(this.appIfFeatureFlagElse);
+	}
 
-    this.clearView();
+  private createView(templateRef: TemplateRef<unknown>): void {
+    this.viewContainerRef.createEmbeddedView(templateRef);
   }
 }

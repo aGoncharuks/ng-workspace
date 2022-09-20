@@ -7,7 +7,7 @@ const FEATURE_FLAGS_MOCK: Record<string, boolean> = {
 
 @Injectable({providedIn: 'root'})
 export class FeatureFlagService {
-  public getFeatureStatus(featureFlag: string): Promise<boolean> {
+  public getFeatureFlag(featureFlag: string): Promise<boolean> {
 		return Promise.resolve(FEATURE_FLAGS_MOCK[featureFlag]);
   }
 }
