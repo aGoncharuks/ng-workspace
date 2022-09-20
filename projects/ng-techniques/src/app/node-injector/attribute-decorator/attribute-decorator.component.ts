@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { DisplayNameComponent } from './display-name.component';
 
 @Component({
@@ -12,11 +12,6 @@ import { DisplayNameComponent } from './display-name.component';
   styles: [
   ]
 })
-export class AttributeDecoratorComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class AttributeDecoratorComponent {
 
 }

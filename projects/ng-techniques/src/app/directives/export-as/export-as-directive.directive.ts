@@ -8,8 +8,6 @@ import { Directive, HostBinding } from '@angular/core';
 export class ExportAsDirective {
 	@HostBinding('style.backgroundColor') backgroundColor: string = 'transparent';
 	
-  constructor() { }
-	
 	setBackgroundColor(color: string): void {
 		this.backgroundColor = color;
 	}

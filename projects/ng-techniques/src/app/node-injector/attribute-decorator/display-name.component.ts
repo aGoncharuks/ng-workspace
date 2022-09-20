@@ -1,5 +1,5 @@
-import { Attribute, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Attribute, Component } from '@angular/core';
 
 @Component({
   selector: 'app-display-name',
@@ -14,11 +14,7 @@ import { CommonModule } from '@angular/common';
   styles: [
   ]
 })
-export class DisplayNameComponent implements OnInit {
+export class DisplayNameComponent {
 
   constructor(@Attribute('name') public name: string) { }
-
-  ngOnInit(): void {
-  }
-
 }
