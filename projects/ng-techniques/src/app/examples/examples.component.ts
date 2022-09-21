@@ -7,19 +7,20 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterOutlet } from '@angular/router';
+import { LetModule } from '@ngrx/component';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
 	standalone: true,
-	imports: [MatSidenavModule, MatToolbarModule, MatListModule, MatButtonModule, MatIconModule, CommonModule, RouterOutlet],
+	imports: [MatSidenavModule, MatToolbarModule, MatListModule, MatButtonModule, MatIconModule, CommonModule, RouterOutlet, LetModule],
   template: `
-    <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav-container *ngrxLet="isHandset$ as isHandset" class="sidenav-container">
       <mat-sidenav #drawer class="sidenav" fixedInViewport
-          [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-          [mode]="(isHandset$ | async) ? 'over' : 'side'"
-          [opened]="(isHandset$ | async) === false">
+          [attr.role]="isHandset ? 'dialog' : 'navigation'"
+          [mode]="isHandset ? 'over' : 'side'"
+          [opened]="isHandset === false">
         <mat-toolbar>Menu</mat-toolbar>
         <mat-nav-list>
           <a *ngFor="let route of routes" mat-list-item href="{{route.path}}">{{route.name}}</a>
@@ -32,7 +33,7 @@ import { map, shareReplay } from 'rxjs/operators';
             aria-label="Toggle sidenav"
             mat-icon-button
             (click)="drawer.toggle()"
-            *ngIf="isHandset$ | async">
+            *ngIf="isHandset">
             <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
           </button>
         </mat-toolbar>
