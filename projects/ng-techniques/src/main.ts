@@ -27,6 +27,10 @@ bootstrapApplication(ExamplesComponent, {
 					path: 'node-injector',
 					loadChildren: () => import('./app/node-injector/node-injector.routes').then(m => m.NODE_INJECTOR_ROUTES)
 				},
+				{
+					path: 'rx',
+					loadChildren: () => import('./app/rx/rx.routes').then(m => m.RX_ROUTES)
+				}
 			])
 		)
 	]

@@ -24,7 +24,8 @@
           "skipTests": true
         },
         "@schematics/angular:directive": {
-          "skipTests": true
+          "skipTests": true,
+					"standalone": true
         },
         "@schematics/angular:guard": {
           "skipTests": true
