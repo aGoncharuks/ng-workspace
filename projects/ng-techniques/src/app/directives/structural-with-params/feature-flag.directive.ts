@@ -1,5 +1,5 @@
 import { Directive, inject, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { FeatureFlagService } from './feature-flag-service';
+import { FEATURE_FLAGS_SERVICE } from './feature-flag-service.token';
 
 @Directive({
   selector: '[appIfFeatureFlag]',
@@ -13,7 +13,7 @@ export class FeatureFlagDirective implements OnInit {
 
 	private templateRef = inject(TemplateRef<unknown>);
 	private viewContainerRef = inject(ViewContainerRef);
-	private featureFlagService = inject(FeatureFlagService);
+	private featureFlagService = inject(FEATURE_FLAGS_SERVICE);
 	
   async ngOnInit() {
 		try {
