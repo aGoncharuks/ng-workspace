@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const DIRECTIVES_ROUTES: Routes = [
+export const ROUTES: Routes = [
 	{
 		path: '',
 		redirectTo: 'export-as',

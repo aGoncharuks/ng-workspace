@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const COMPONENTS_ROUTES: Routes = [
+export const ROUTES: Routes = [
 	{
 		path: '',
 		redirectTo: 'dynamic',

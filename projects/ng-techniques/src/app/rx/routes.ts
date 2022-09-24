@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-export const RX_ROUTES: Routes = [
+export const ROUTES: Routes = [
 	{
 		path: '',
 		redirectTo: 'observable-as-output',
