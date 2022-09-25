@@ -30,7 +30,11 @@ bootstrapApplication(AppComponent, {
 				{
 					path: 'rx',
 					loadChildren: () => import('./app/rx/routes').then(m => m.ROUTES)
-				}
+				},
+				{
+					path: 'router',
+					loadChildren: () => import('./app/router/routes').then(m => m.ROUTES)
+				},
 			])
 		)
 	]
