@@ -1,20 +1,20 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLinkWithHref, RouterOutlet } from '@angular/router';
 import { LetModule } from '@ngrx/component';
-import { Observable } from 'rxjs';
+import { filter, Observable, tap } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
 	standalone: true,
-	imports: [MatSidenavModule, MatToolbarModule, MatListModule, MatButtonModule, MatIconModule, CommonModule, RouterOutlet, LetModule],
+	imports: [MatSidenavModule, MatToolbarModule, MatListModule, MatButtonModule, MatIconModule, CommonModule, RouterOutlet, LetModule, RouterLinkWithHref],
   template: `
     <mat-sidenav-container *ngrxLet="isHandset$ as isHandset" class="sidenav-container">
       <mat-sidenav #drawer class="sidenav" fixedInViewport
@@ -23,7 +23,14 @@ import { map, shareReplay } from 'rxjs/operators';
           [opened]="isHandset === false">
         <mat-toolbar>Menu</mat-toolbar>
         <mat-nav-list>
-          <a *ngFor="let route of routes" mat-list-item href="{{route.path}}">{{route.name}}</a>
+	        <ng-container *ngFor="let route of routes">
+            <a mat-list-item routerLink="{{route.path}}">{{route.path}}</a>
+		        <mat-nav-list *ngIf="route._loadedRoutes as childRoutes">
+			        <ng-container *ngFor="let childRoute of childRoutes">
+				        <a *ngIf="childRoute.path" mat-list-item routerLink="{{route.path}}/{{childRoute.path}}">- {{childRoute.path}}</a>
+			        </ng-container>
+		        </mat-nav-list>
+	        </ng-container>
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content>
@@ -43,20 +50,27 @@ import { map, shareReplay } from 'rxjs/operators';
   `,
 	styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 	private router = inject(Router);
 	private breakpointObserver = inject(BreakpointObserver);
-
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+	
+	ngOnInit() {
+		this.router.events.pipe(
+			filter(event => event instanceof NavigationEnd),
+			tap(event => {
+				console.log(event);
+				console.log(this.router);
+			})
+		).subscribe();
+	}
+	
+	isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
 	
 	get routes() {
-		return this.router.config.map((({ path }) => ({
-			path,
-			name: path
-		})));
+		return this.router.config as any;
 	}
 }
