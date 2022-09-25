@@ -11,11 +11,7 @@ export class OnHoverDirective {
 	
 	@Output()
 	onHoverChange: Observable<boolean> = merge(
-		fromEvent(this.elementRef.nativeElement, 'mouseenter').pipe(
-			map(() => true)
-		),
-		fromEvent(this.elementRef.nativeElement, 'mouseleave').pipe(
-			map(() => false)
-		)
+		fromEvent(this.elementRef.nativeElement, 'mouseenter').pipe(map(() => true)),
+		fromEvent(this.elementRef.nativeElement, 'mouseleave').pipe(map(() => false))
 	);
 }
