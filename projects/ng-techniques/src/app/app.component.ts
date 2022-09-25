@@ -1,14 +1,14 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { NavigationEnd, Router, RouterLinkWithHref, RouterOutlet } from '@angular/router';
+import { Route, Router, RouterLinkWithHref, RouterOutlet } from '@angular/router';
 import { LetModule } from '@ngrx/component';
-import { filter, Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
@@ -50,19 +50,9 @@ import { map, shareReplay } from 'rxjs/operators';
   `,
 	styleUrls: ['app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 	private router = inject(Router);
 	private breakpointObserver = inject(BreakpointObserver);
-	
-	ngOnInit() {
-		this.router.events.pipe(
-			filter(event => event instanceof NavigationEnd),
-			tap(event => {
-				console.log(event);
-				console.log(this.router);
-			})
-		).subscribe();
-	}
 	
 	isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -71,6 +61,6 @@ export class AppComponent implements OnInit {
     );
 	
 	get routes() {
-		return this.router.config as any;
+		return this.router.config as Array<Route & {_loadedRoutes: Route[]}>;
 	}
 }
