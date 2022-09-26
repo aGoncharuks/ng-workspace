@@ -35,6 +35,10 @@ bootstrapApplication(AppComponent, {
 					path: 'router',
 					loadChildren: () => import('./app/router/routes').then(m => m.ROUTES)
 				},
+				{
+					path: 'pipes',
+					loadChildren: () => import('./app/pipes/routes').then(m => m.ROUTES)
+				}
 			])
 		)
 	]

@@ -1,6 +1,10 @@
 import { InjectionToken } from '@angular/core';
-import { FeatureFlagService } from './feature-flag-service';
+import { FeatureFlagServiceMock } from './feature-flag-service-mock.service';
 
-export const FEATURE_FLAGS_SERVICE = new InjectionToken('feature.flags.service', {
-	factory: () => new FeatureFlagService()
+export const FEATURE_FLAGS_SERVICE = new InjectionToken<FeatureFlagsService>('feature.flags.service', {
+	factory: () => new FeatureFlagServiceMock()
 });
+
+export interface FeatureFlagsService {
+	getFeatureFlag(flagName: string): Promise<boolean>;
+}
