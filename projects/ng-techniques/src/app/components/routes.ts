@@ -13,5 +13,9 @@ export const ROUTES: Routes = [
 	{
 		path: 'banana-in-a-box',
 		loadComponent: () => import('./banana-in-a-box/banana-in-a-box.component').then(m => m.BananaInABoxComponent)
-	}
+	},
+	{
+		path: 'ng-component-outlet',
+		loadComponent: () => import('./ng-component-outlet/ng-component-outlet.component').then(m => m.NgComponentOutletComponent)
+	},
 ];
