@@ -21,7 +21,7 @@ export class FeatureFlagDirective implements OnInit {
 			featureFlag ? this.onIf() : this.onElse();
 		} catch (error) {
       this.onElse();
-			console.error(error); // to be replaced with your error handling logic
+			// additional error handling logic goes here
 		}
   }
 	
