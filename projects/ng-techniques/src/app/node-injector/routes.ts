@@ -14,4 +14,8 @@ export const NODE_INJECTOR_ROUTES = [
 		path: 'attribute-decorator',
 		loadComponent: () => import('./attribute-decorator/attribute-decorator.component').then(m => m.AttributeDecoratorComponent)
 	},
+	{
+		path: 'component-provider-hooks',
+		loadComponent: () => import('./component-provider-hooks/component-provider-hooks.component').then(m => m.ComponentProviderHooksComponent)
+	},
 ];
