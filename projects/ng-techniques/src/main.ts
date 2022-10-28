@@ -38,6 +38,10 @@ bootstrapApplication(AppComponent, {
 				{
 					path: 'pipes',
 					loadChildren: () => import('./app/pipes/routes').then(m => m.ROUTES)
+				},
+				{
+					path: 'decorators',
+					loadChildren: () => import('./app/decorators/routes').then(m => m.ROUTES)
 				}
 			])
 		)
